@@ -35,8 +35,7 @@ const updateBook = async (req, res) => {
     try {
         const { id } = req.params;
         const { title, description } = req.body;
-        const file = req.file ? req.file.filename : null;
-
+        const filePath = req.file ? req.file.path : null; // Use req.file.path to get the full path
 
         const book = await Book.findByPk(id);
 
@@ -47,10 +46,8 @@ const updateBook = async (req, res) => {
         const updatedBook = await book.update({
             title: title || book.title,
             description: description || book.description,
-
-            file: file || book.file,
+            file: filePath || book.file, // Save the full path
         });
-
 
         res.status(200).json({
             message: 'Book updated successfully!',
@@ -61,6 +58,7 @@ const updateBook = async (req, res) => {
         res.status(500).json({ message: 'Failed to update book.', error });
     }
 };
+
 
 
 

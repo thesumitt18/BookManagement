@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,  
     limits: { 
-        fileSize: 10 * 1024 * 1024
+        fileSize: 10 * 1024 * 1024      
     },
     fileFilter: (req, file, cb) => {
         const filetypes = /jpeg|jpg|png|gif/;  
@@ -25,6 +25,6 @@ const upload = multer({
             cb(new Error('Error: File type not supported'));  // Reject the file with an error message
         }
     }
-}).single('image');  // Accept only one file with the 'image' field name
+}).single('file');  // Accept only one file with the 'image' field name
 
 module.exports = upload;
